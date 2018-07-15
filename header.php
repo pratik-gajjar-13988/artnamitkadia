@@ -1,11 +1,54 @@
 <!DOCTYPE html>
+
 <?php
 
   
-	require_once('Admin/conn.php');
+  require_once('Admin/conn.php');
+  session_start();
+  if(isset($_GET['action'])) {
+   
+    switch($_GET["action"]) {
+      case "add":
+    
+          $sql1 = "SELECT * FROM art_items WHERE item_id=" . $_GET["item_id"] ;
+          $result1 = mysqli_query($link, $sql1);
+          while($row = mysqli_fetch_assoc($result1)) {
+         $arr = array($row['item_id']);
+         
+          if(!empty($_SESSION["cart_item"])) {
+            if(!in_array( $arr ,array_keys($_SESSION["cart_item"]))){ 
+              $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"], $arr);
+            }
+          } else {
+            $_SESSION["cart_item"] =  $arr; 
+          }
+        }
+       
+      break;
+      case "remove":
+     
+        
+        if (($key = array_search($_GET['item_id'], $_SESSION["cart_item"])) !== false) {
+            unset($_SESSION["cart_item"][$key]);
+            if(count($_SESSION["cart_item"]) == 0){
+              unset($_SESSION["cart_item"]);
+            }
+            header("Location: cart.php");
+       }
+       
+       
+      break;
+      case "empty":
+        unset($_SESSION["cart_item"]);
+        header("Location: cart.php");
+      break;	
+    }
+    }
+   
+    ?>
 	
 	
-?>
+
 <html lang="en">
 
   <head>
@@ -51,6 +94,9 @@
                 <a class="dropdown-item" href="acrylicpaintings.php">Acrylic Paintings</a>
                 <a class="dropdown-item" href="waterpaintings.php">Water Paintings</a>
               </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cart.php">Cart</a>
             </li>
             
 			  <li class="nav-item">

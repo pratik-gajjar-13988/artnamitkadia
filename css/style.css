@@ -30,3 +30,26 @@ body {
 .text-white {
   color:white;
 }
+
+.img-responsive {
+  width: auto;
+  height: 200px;
+}
+
+.cartimg-responsive {
+  width: 100px;
+  height: 100px;
+}
+
+img.emptycart {
+  display: block;
+  margin-left: 450px;
+  margin-right: auto;
+ 
+	height:100px;
+  width:100px;
+  opacity: 0.3;
+}
+td.spaced {margin-left: 200px;}
+
+
