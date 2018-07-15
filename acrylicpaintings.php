@@ -24,7 +24,7 @@
       <div class="row">
       <?php
 
-$sql = "SELECT * FROM art_items WHERE category LIKE 'clay'";
+$sql = "SELECT * FROM art_items WHERE category LIKE 'acrylic'";
 $result = mysqli_query($link, $sql);
 
 if (mysqli_num_rows($result) > 0) {

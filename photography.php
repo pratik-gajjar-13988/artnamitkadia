@@ -27,7 +27,7 @@
 
       <?php
 
-$sql = "SELECT * FROM art_items WHERE category LIKE 'oil'";
+$sql = "SELECT * FROM art_items WHERE category LIKE 'photo'";
 $result = mysqli_query($link, $sql);
 
 if (mysqli_num_rows($result) > 0) {
