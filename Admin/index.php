@@ -1,102 +1,112 @@
-<!DOCTYPE html>
 <?php
 
 		require_once('conn.php');
-		$msg="";
-		
-		if(isset($_POST['submit']))
-		{
-			$unm=($_POST['uname']);
-			$pass=($_POST['password']);
-			$query="select * from admin";
-			$result=mysqli_query($link,$query);
-			$row=mysqli_fetch_assoc($result);
-			$dbunm=$row['username'];
-			$dbpass=$row['password'];
-			if(mysqli_error($link))
-			{
-				echo mysqli_error($link);
-				exit;
-			}
-			else
-			{
-				
-				//if(password_verify($pass,$dbpass) && $unm==$dbunm) 
-				//{
-					session_start();
-					$_SESSION['id']=$row['id'];
-					$_SESSION['uname']=$row['username'];
-					header('Location:adminHome.php');
-				}
-				//else
-				//{
-					//$msg="<p style='padding:8px'>Username and Password is incorrect..</p>";
-					//header('Location:adminHome.php');
-				//}
-			
-			
-		}
-
-?>
-
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Admin Login</title>
-		<link href="../images/icon.png" rel="icon">
-		<link href="../css/bootstrap.min.css" rel="stylesheet">
-		<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-		<link href="style.css" rel="stylesheet">
-	</head>
-
-	<body>
+		session_start();
 	
+		if (isset($_POST['email'])){
+			
+			$email = trim($_REQUEST['email']);
+			$password = trim($_REQUEST['password']);
 		
-		<nav class="navbar navbar-inverse top-menu">
-		  <div class="container-fluid">
-			<div class="navbar-header">
-			  <a class="navbar-brand" href="#">NAG Admin Portal</a>
-			</div>
-			<div>
-			 
-				<ul class="nav navbar-nav navbar-right">
-				<li><a href="registration.php"><span class="glyphicon glyphicon-user"></span> Registration</a><li>
-				<li><a href="#" style="color:#fff"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-			  </ul>
-			</div>
-		  </div>
-		</nav>
+			//Checking is user existing in the database or not
+			$query = "SELECT * FROM `user_reg` WHERE email='$email' and password='".md5($password)."'";
+			$result = mysqli_query($link,$query) or die(mysql_error());
+			$rows = mysqli_num_rows($result);
+			if($rows==1){
+				$_SESSION['email'] = $email;
+				// Redirect user to index.php
+				header("Location: userhome.php");
+			}else{
+				header("Location: index.php");
+			}
+		}else{
+?>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Namit Kadia - Art Gallery</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link href="../css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-			<div class="panel panel-primary admin-login">
-				<div class="panel-heading">
-					<h3>Login</h3>
-				</div>
-				<div class="panel-body">
-					<form class="form-horizontal" role="form" method="post">
-					  <div class="bg-danger error_msg"><?php echo $msg; ?></div>
-					  <div class="form-group input-group">
-							<span class="input-group-addon glyphicon glyphicon-envelope" style="top:0"></span><input type="email" name="uname" class="form-control"placeholder="Enter email">
-					  </div>
-					  <div class="form-group input-group">
-							<span class="input-group-addon glyphicon glyphicon-lock" style="top:0"></span><input type="password" name="password" class="form-control" placeholder="Enter password">
-					  </div>
-					  
-					  <div class="form-group"> 
-						  <button type="submit" name="submit" class="btn btn-primary btn-block">Login</button>
-					  </div>
-					</form>
-				</div>
+			<a class="navbar-brand" href="index.php">Namit Kadia</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="registration.php">Registration</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Login</a>
+					</li>
+				
+					
+				</ul>
 			</div>
 		</div>
-		<?php
-			require_once('dbconclose.php');
-		?>
+	</nav>
+	<div class="container">
+
+ <div class="row">
+        <div class="col-lg-8 mb-4">
+          <h3>Login</h3>
+          <form id="loginForm" method="post" novalidate>
+            <div class="control-group form-group">
+              <div class="controls">
+                <label>Email:</label>
+								<input type="email" class="form-control" name="email" id="email" required data-validation-required-message="Please enter your email.">
+                <p class="help-block"></p>
+              </div>
+            </div>
+            <div class="control-group form-group">
+              <div class="controls">
+                <label>Password:</label>
+								<input type="text" class="form-control" name="password" id="password" required data-validation-required-message="Please enter your password.">
+                
+              </div>
+            </div>
+           <div id="success"></div>
+            <!-- For success/fail messages -->
+            <button type="submit" class="btn btn-primary" id="loginButton">Login</button>
+          </form>
+        </div>
+
+      </div>
+
+
+
+
+
+
 		
-	</body>
+		</div>
+		<script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	  <script src="../js/jqBootstrapValidation.js"></script>
+    
+		<script src="../js/login.js"></script>
+		</body>
 </html>
-
-
-
-
+<?php
+		}
+	require_once('dbconclose.php');
+?>

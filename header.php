@@ -4,6 +4,9 @@
 
   
   require_once('Admin/conn.php');
+  $query="select * from social_media where uid=1";
+	$result=mysqli_query($link,$query) or die("Error fetching data.".mysqli_error($link));
+	$socialdetails=mysqli_fetch_assoc($result);
   session_start();
   if(isset($_GET['action'])) {
    
@@ -63,6 +66,7 @@
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
 
@@ -144,5 +148,6 @@
         </a>
       </div>
     </header>
+  
 
    

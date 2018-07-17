@@ -2,7 +2,8 @@
 <?php
 	$page="contact";
 	$title="Contact";
-	require_once('header.php');
+  require_once('header.php');
+  
 	
 ?>	
 
@@ -30,27 +31,25 @@
         </div>
         <!-- Contact Details Column -->
         <div class="col-lg-4 mb-4">
+        <?php	
+											$query="select * from contact_us where uid=1";
+											$result=mysqli_query($link,$query) or die("Error fetching data.".mysqli_error($link));
+											$contactetails=mysqli_fetch_assoc($result);
+											mysqli_free_result($result);
+										?>
           <h3>Contact Details</h3>
-          <p>
-          G-27 Parth Avenue,
-Opp. Nalanda School,
-Ghatlodia, Ahmedabad-380061
-
-
-
-            <br>Gujarat State, India.
-            <br>
+          <p><?php echo $contactetails['address']; ?>
           </p>
           <p>
-            <abbr title="Phone">P</abbr>: 09724830217
+            <abbr title="Phone">P</abbr>: <?php echo $contactetails['phone']; ?>
           </p>
           <p>
             <abbr title="Email">E</abbr>:
-            <a href="mailto:name@example.com">nkadia09@gmail.com
+            <a href="<?php echo $contactetails['email']; ?>"><?php echo $contactetails['email']; ?>
             </a>
           </p>
           <p>
-            <abbr title="Hours">H</abbr>: Monday - Friday: 9:00 AM to 5:00 PM
+            <abbr title="Hours">H</abbr>: <?php echo $contactetails['time']; ?>
           </p>
         </div>
       </div>
