@@ -3,7 +3,7 @@
 <?php
 
   
-  require_once('Admin/conn.php');
+  require_once('admin/conn.php');
   $query="select * from social_media where uid=1";
 	$result=mysqli_query($link,$query) or die("Error fetching data.".mysqli_error($link));
 	$socialdetails=mysqli_fetch_assoc($result);

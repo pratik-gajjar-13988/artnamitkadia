@@ -2,6 +2,8 @@
 	$page="index";
 	$title="Home";
 	$item_success_msg="";
+	ini_set('upload-max-filesize', '10M');
+ini_set('post_max_size', '10M');
 
 	require_once('header.php');
 
@@ -13,7 +15,7 @@
 				{
 					$path = "../images/";
 					$path = $path . basename( $_FILES['uploaded_file']['name']);
-					$filetodb = "images/$path";
+					$filetodb = "images/".basename( $_FILES['uploaded_file']['name']);
 					$name=$_POST['itemname'];
 					$category=$_POST['category'];
 					$price=$_POST['price'];
@@ -22,6 +24,7 @@
 						$query = "INSERT INTO `art_items`(`name`, `source`, `category`, `description`,`price`)
 						VALUES ('$name','$filetodb','$category', '$description',$price)";
 						$result = mysqli_query($link,$query) or die("Error adding data.".mysqli_error($link));
+						$item_success_msg="Item added successfully";
 					}  else{
 						echo "There was an error uploading the file, please try again!";
 				}

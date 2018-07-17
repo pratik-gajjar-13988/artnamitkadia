@@ -70,7 +70,7 @@
 						<div class="control-group form-group">
               <div class="controls">
                 <label>Description:</label>
-				<input type="text" name="description" class="form-control" value="<?php echo $item_details['desc']; ?>" required>
+				<input type="text" name="description" class="form-control" value="<?php echo $item_details['description']; ?>" required>
 							
                 
               </div>
