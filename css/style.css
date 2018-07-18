@@ -50,6 +50,39 @@ img.emptycart {
   width:100px;
   opacity: 0.3;
 }
-td.spaced {margin-left: 200px;}
+
+.imgcontainer {
+  display: block;
+  position: relative;
+  text-align: center;
+  color: white;
+  
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  font-family:Palatino, URW Palladio L, serif; 
+  color: #000;
+  text-decoration: none;
+  font-style: italic;
+}
+
+.centeredabout {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  font-family:Palatino, URW Palladio L, serif;
+  color: #fff;
+  text-decoration: none;
+  
+}
+
+
+
 
 
