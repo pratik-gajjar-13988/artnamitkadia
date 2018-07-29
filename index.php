@@ -1,74 +1,112 @@
-<!DOCTYPE html>
 <?php
-	$page="index";
-	$title="Home";
-	require_once('header.php');
+
+		require_once('admin/conn.php');
+		session_start();
 	
-?>		
+		if (isset($_POST['email'])){
+			
+			$email = trim($_REQUEST['email']);
+			$password = trim($_REQUEST['password']);
+		
+			//Checking is user existing in the database or not
+			$query = "SELECT * FROM `user_reg` WHERE email='$email' and password='".md5($password)."'";
+			$result = mysqli_query($link,$query) or die(mysql_error());
+			$rows = mysqli_num_rows($result);
+			if($rows==1){
+				$_SESSION['email'] = $email;
+				// Redirect user to index.php
+				header("Location: userhome.php");
+			}else{
+				header("Location: index.php");
+			}
+		}else{
+?>
+<html lang="en">
 
-    <!-- Page Content -->
-    <div class="container">
+<head>
 
-      
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-      <!-- Marketing Icons Section -->
-      <div class="row">
-          <div class="imgcontainer">
-              <img src="images/home_img.jpg" alt="Snow" >
-              <div class="centered">“There are painters who transform the sun to a yellow spot, but there are others who, with the help of their art and their intelligence, transform a yellow spot into sun.” <p>~Pablo Picasso</p></div>
-         </div>
-    </div>
-    <h2>Namit Kadia</h2>
-    <div class="row">
-          <div class="imgcontainer">
-              <img src="images/home_about1.jpg" alt="Snow" >
-              <div class="centeredabout">Born in Ahmedabad, Namit has always shown his interest in art. Painting being his first passion he also started taking photography as a serious business from his childhood.<p><button class="btn"><a href="about.php">View More</a></button></p></div>
-              
-         </div>
-    </div>
-      <!-- /.row -->
+	<title>Namit Kadia - Art Gallery</title>
 
-      <!-- Portfolio Section -->
-      <h2>Works</h2>
+	<!-- Bootstrap core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-       <div class="row">
-      <?php
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link href="css/style.css" rel="stylesheet">
 
-$sql = "SELECT * FROM art_items";
-$result = mysqli_query($link, $sql);
+</head>
 
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-      while($row = mysqli_fetch_assoc($result)) { ?>
-     
-     <div class="col-lg-4 mb-4">
-          <div class="card h-100 text-center">
-            
-            <img class="card-img-top img-responsive" src="<?php echo $row['source']; ?>" alt="<?php echo $row['name']; ?>">
-           
-          </div>
+<body>
+
+	<!-- Navigation -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="index.php">Namit Kadia</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="registration.php">Registration</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Login</a>
+					</li>
+				
+					
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+
+ <div class="row">
+        <div class="col-lg-8 mb-4">
+          <h3>Login</h3>
+          <form id="loginForm" method="post" novalidate>
+            <div class="control-group form-group">
+              <div class="controls">
+                <label>Email:</label>
+								<input type="email" class="form-control" name="email" id="email" required data-validation-required-message="Please enter your email.">
+                <p class="help-block"></p>
+              </div>
+            </div>
+            <div class="control-group form-group">
+              <div class="controls">
+                <label>Password:</label>
+								<input type="text" class="form-control" name="password" id="password" required data-validation-required-message="Please enter your password.">
+                
+              </div>
+            </div>
+           <div id="success"></div>
+            <!-- For success/fail messages -->
+            <button type="submit" class="btn btn-primary" id="loginButton">Login</button>
+          </form>
         </div>
-       
-       
-         <?php
-    }
-} else {
-    echo "0 results";
-}
 
-?>	
-
-
-
-
-
-      
       </div>
-    </div>
-    <!-- /.container -->
 
-    <!-- Footer -->
-     <?php
 
-	require('footer.php');
+
+
+
+
+		
+		</div>
+		<script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	  <script src="js/jqBootstrapValidation.js"></script>
+    
+		<script src="js/login.js"></script>
+		</body>
+</html>
+<?php
+		}
+	require_once('admin/dbconclose.php');
 ?>

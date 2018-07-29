@@ -4,47 +4,30 @@
 
   
   require_once('admin/conn.php');
+  include("auth.php");	
   $query="select * from social_media where uid=1";
 	$result=mysqli_query($link,$query) or die("Error fetching data.".mysqli_error($link));
 	$socialdetails=mysqli_fetch_assoc($result);
-  session_start();
+  $email = trim($_SESSION['email']);
   if(isset($_GET['action'])) {
    
     switch($_GET["action"]) {
       case "add":
-    
-          $sql1 = "SELECT * FROM art_items WHERE item_id=" . $_GET["item_id"] ;
-          $result1 = mysqli_query($link, $sql1);
-          while($row = mysqli_fetch_assoc($result1)) {
-         $arr = array($row['item_id']);
-         
-          if(!empty($_SESSION["cart_item"])) {
-            if(!in_array( $arr ,array_keys($_SESSION["cart_item"]))){ 
-              $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"], $arr);
-            }
-          } else {
-            $_SESSION["cart_item"] =  $arr; 
-          }
-        }
-       
-      break;
+         $itemid = trim($_REQUEST['item_id']);
+         $query2 = "INSERT INTO `cart`(`item_id`, `email`)
+         VALUES ($itemid,'$email')";
+         $result2 = mysqli_query($link,$query2) or die(mysql_error());
+          break;
       case "remove":
-     
-        
-        if (($key = array_search($_GET['item_id'], $_SESSION["cart_item"])) !== false) {
-            unset($_SESSION["cart_item"][$key]);
-            if(count($_SESSION["cart_item"]) == 0){
-              unset($_SESSION["cart_item"]);
-            }
-            header("Location: cart.php");
-       }
-       
-       
+           $itemid = trim($_REQUEST['item_id']);
+           $query = "DELETE FROM `cart` WHERE item_id=$itemid and email like '$email'";
+           $result = mysqli_query($link,$query) or die(mysql_error());
       break;
       case "empty":
-        unset($_SESSION["cart_item"]);
-        header("Location: cart.php");
-      break;	
+      $itemid = trim($_REQUEST['item_id']);
+      $query = "DELETE * FROM `cart` WHERE email like '$email'";
+      $result = mysqli_query($link,$query) or die(mysql_error());
+        break;	
     }
     }
    
@@ -70,6 +53,8 @@
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
 
+   
+
   </head>
 
   <body>
@@ -77,12 +62,15 @@
     <!-- Navigation -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="index.php">Namit Kadia</a>
+        <a class="navbar-brand" href="userhome.php">Namit Kadia</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+              <a class="nav-link" href="userhome.php">Home</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="about.php">About</a>
             </li>
@@ -106,6 +94,9 @@
 			  <li class="nav-item">
               <a class="nav-link" href="contact.php">Contact</a>
             </li>
+            <li class="nav-item">
+					<a class="nav-link" href="logout.php">Logout</a>
+				</li>
           </ul>
         </div>
       </div>

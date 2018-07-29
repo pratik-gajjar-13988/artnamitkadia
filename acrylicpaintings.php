@@ -16,7 +16,7 @@
 
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="index.php">Home</a>
+          <a href="userhome.php">Home</a>
         </li>
         <li class="breadcrumb-item active">Acrylic Paintings</li>
       </ol>

@@ -16,7 +16,7 @@
 
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="index.php">Home</a>
+          <a href="userhome.php">Home</a>
         </li>
         <li class="breadcrumb-item active">Cart</li>
       </ol>
@@ -26,8 +26,10 @@
      
    
 <?php
-if(isset($_SESSION["cart_item"])){
-    $item_total = 0;
+	$sql = "SELECT * FROM `cart` WHERE email LIKE '$email'";
+	$result2 = mysqli_query($link, $sql);
+
+	if (mysqli_num_rows($result2) > 0) {
 ?>	
  
  <div class="table-responsive">
@@ -35,11 +37,12 @@ if(isset($_SESSION["cart_item"])){
 <tbody>
 
 <?php		
-    foreach ($_SESSION["cart_item"] as $item){
+     $item_total = 0;
+     while($row = mysqli_fetch_assoc($result2)) {
 
-      $sql2 = "SELECT * FROM art_items WHERE item_id=" .$item ;
-      $result2 = mysqli_query($link, $sql2);
-      while($row = mysqli_fetch_assoc($result2)) {
+      $sql3 = "SELECT * FROM art_items WHERE item_id=" .$row['item_id'] ;
+      $result3 = mysqli_query($link, $sql3);
+      while($row = mysqli_fetch_assoc($result3)) {
 		?>
 				<tr>
         <td style="border-bottom:#F0F0F0 1px solid;"><img src="<?php echo $row['source']; ?>" class="cartimg-responsive" alt="<?php echo $row['name']; ?>"/></td>
@@ -57,7 +60,7 @@ if(isset($_SESSION["cart_item"])){
 
 <tr>
         
-<form method="post" action="index.php">
+<form method="post" action="userhome.php">
 <td style="border-bottom:#F0F0F0 1px solid;"><button type="submit" class="btn btn-primary" id="btnBrowse">Continue Browsing</button></td>
   </form> 
   <td style="border-bottom:#F0F0F0 1px solid; vertical-align: middle;"><strong>Total:</strong> </td>

@@ -2,6 +2,7 @@
 	$page="index";
 	$title="Home";
 	$item_success_msg="";
+	$item_new_arrival=0;
 	ini_set('upload-max-filesize', '10M');
 ini_set('post_max_size', '10M');
 
@@ -20,9 +21,13 @@ ini_set('post_max_size', '10M');
 					$category=$_POST['category'];
 					$price=$_POST['price'];
 					$description = $_POST['description'];
+					if(isset($_POST['newarrival']) && $_POST['newarrival'] == 'Yes')
+					{
+						$item_new_arrival=1;
+					}
 					if(move_uploaded_file($_FILES['uploaded_file']['tmp_name'], $path)) {
-						$query = "INSERT INTO `art_items`(`name`, `source`, `category`, `description`,`price`)
-						VALUES ('$name','$filetodb','$category', '$description',$price)";
+						$query = "INSERT INTO `art_items`(`name`, `source`, `category`, `description`,`price`, `new_flag`)
+						VALUES ('$name','$filetodb','$category', '$description',$price,$item_new_arrival)";
 						$result = mysqli_query($link,$query) or die("Error adding data.".mysqli_error($link));
 						$item_success_msg="Item added successfully";
 					}  else{
@@ -95,13 +100,22 @@ ini_set('post_max_size', '10M');
 							
                 
               </div>
+							</div>
+			<div class="control-group form-group">
+              <div class="controls">
+                <label>New Arrival:</label>
+								<input type="checkbox" name="newarrival" value="Yes" />
+							
+                
+              </div>
             </div>
 			<button type="submit" name="item_detail" class="btn btn-primary">Add</button>
  	  	  <span class="text-success" style="padding-left:10px"><?php echo $item_success_msg; ?></span>
 
           	</form>
 
-									
+								
+
 									
 								</div>
 						</div>

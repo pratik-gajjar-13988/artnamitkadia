@@ -3,6 +3,7 @@
 	$title="Home";
 	$item_success_msg="";
 	$itemid = $_GET["item_id"];
+	$item_new_arrival=0;
 	require_once('header.php');
 	if(isset($_GET['action'])) {
    
@@ -10,8 +11,12 @@
 		  case "edit":
 			if(isset($_POST['item_detail']))
 			{
+				if(isset($_POST['newarrival']) && $_POST['newarrival'] == 'Yes')
+				{
+					$item_new_arrival=1;
+				}
 				
-				$query="update art_items set name='".$_POST['itemname']."', category='".$_POST['category']."' , description='".$_POST['description']."' , price=".$_POST['price']." where item_id=".$itemid;
+				$query="update art_items set name='".$_POST['itemname']."', category='".$_POST['category']."' , description='".$_POST['description']."' , price=".$_POST['price'].", new_flag=".$item_new_arrival." where item_id=".$itemid;
 				mysqli_query($link,$query) or die("Error updating data.".mysqli_error($link));
 			
 
@@ -94,6 +99,14 @@
               <div class="controls">
                 <label>Price:</label>
 				<input type="text" name="price" class="form-control" value="<?php echo $item_details['price']; ?>" required>
+							
+                
+              </div>
+            </div>
+						<div class="control-group form-group">
+              <div class="controls">
+                <label>New Arrival:</label>
+								<input type="checkbox" name="newarrival" value="Yes" />
 							
                 
               </div>

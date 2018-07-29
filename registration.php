@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-require_once('conn.php');
+require_once('admin/conn.php');
 session_start();
 	if (isset($_REQUEST['email'])){
 			// removes backslashes
@@ -23,7 +23,7 @@ session_start();
 				if($result){
 					$_SESSION['email'] = $email;
 					// Redirect user to index.php
-					header("Location: contact_details.php");
+					header("Location: userhome.php");
 				}else{
 					header("Location: registration.php");
 				}
@@ -44,11 +44,11 @@ session_start();
 	<title>Namit Kadia - Art Gallery</title>
 
 	<!-- Bootstrap core CSS -->
-	<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-	<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<!-- Custom styles for this template -->
-	<link href="../css/style.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
 
 </head>
 
@@ -171,18 +171,18 @@ session_start();
 
 	 
 	 </div>
-	 <script src="../vendor/jquery/jquery.min.js"></script>
-	 <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	 <script src="../js/jqBootstrapValidation.js"></script>
+	 <script src="vendor/jquery/jquery.min.js"></script>
+	 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	 <script src="js/jqBootstrapValidation.js"></script>
 	 
-	 <script src="../js/register.js"></script>
+	 <script src="js/register.js"></script>
 
 	
 
 
 		<?php
 }
-			require_once('dbconclose.php');
+			require_once('admin/dbconclose.php');
 		?>
 		
 	</body>

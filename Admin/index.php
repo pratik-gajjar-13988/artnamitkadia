@@ -15,7 +15,7 @@
 			if($rows==1){
 				$_SESSION['email'] = $email;
 				// Redirect user to index.php
-				header("Location: userhome.php");
+				header("Location: contact_details.php");
 			}else{
 				header("Location: index.php");
 			}

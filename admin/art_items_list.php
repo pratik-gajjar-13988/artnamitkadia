@@ -42,7 +42,7 @@
 												<td style="border-bottom:#F0F0F0 1px solid; vertical-align: middle;"><strong><?php echo $row["description"]; ?></strong></td>
 												<td style="text-align:right;border-bottom:#F0F0F0 1px solid; vertical-align: middle;"><?php echo "Rs. ".$row["price"]; ?></td>
 												<td style="text-align:center;border-bottom:#F0F0F0 1px solid; vertical-align: middle;"><a href="item_edit.php?action=edit&item_id=<?php echo $row["item_id"]; ?>" class="btnEditAction">Edit</a></td>
-												<td style="text-align:center;border-bottom:#F0F0F0 1px solid; vertical-align: middle;"><a href="art_items_list.php?action=remove&item_id=<?php echo $row["item_id"]; ?>" class="btnRemoveAction">Remote</a></td>
+												<td style="text-align:center;border-bottom:#F0F0F0 1px solid; vertical-align: middle;"><a href="art_items_list.php?action=remove&item_id=<?php echo $row["item_id"]; ?>" class="btnRemoveAction">Remove</a></td>
 												</tr>
 												<?php
 											
