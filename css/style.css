@@ -69,6 +69,9 @@ img.emptycart {
   text-decoration: none;
   font-style: italic;
 }
+.fontcurved {
+  font-family:Snell Roundhand, cursive; 
+}
 
 .centeredabout {
   position: absolute;
@@ -599,6 +602,8 @@ a.cal-event-week {
 .badge-important {
   background-color: #b94a48;
 }
+
+
 
 
 
