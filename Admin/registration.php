@@ -109,14 +109,14 @@ session_start();
 					 <div class="control-group form-group">
 						 <div class="controls">
 							 <label>Password:</label>
-							 <input type="text" class="form-control" name="pwd" id="pwd" required data-validation-required-message="Please enter your password.">
+							 <input type="password" class="form-control" name="pwd" id="pwd" required data-validation-required-message="Please enter your password.">
 							 
 						 </div>
 					 </div>
 					 <div class="control-group form-group">
 						 <div class="controls">
 							 <label>Confirm Password:</label>
-							 <input type="text" class="form-control" name="confirmpwd" id="confirmpwd" required data-validation-required-message="Please enter confirm password.">
+							 <input type="password" class="form-control" name="confirmpwd" id="confirmpwd" required data-validation-required-message="Please enter confirm password.">
 							 <p class="help-block"></p>
 						 </div>
 					 </div>
